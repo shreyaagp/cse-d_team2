@@ -5,8 +5,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,19 +27,39 @@ public class RechargeController {
     @Autowired
     private RechargeService rechargeService;
 
+    // Get all recharges
     @GetMapping
-    public List<Recharge> getRecharges() {
-        logger.info("Received request to fetch all recharges");
-        List<Recharge> recharges = rechargeService.getAllRecharges();
-        logger.debug("Fetched {} recharges from service", recharges.size());
-        return recharges;
+    public ResponseEntity<List<Recharge>> getAllRecharges() {
+        logger.info("API Call: GET /recharges");
+        return ResponseEntity.ok(rechargeService.getAllRecharges());
     }
 
+    // Get recharge by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Recharge> getRechargeById(@PathVariable String id) {
+        logger.info("API Call: GET /recharges/{}", id);
+        return ResponseEntity.ok(rechargeService.getRechargeById(id));
+    }
+
+    // Add new recharge
     @PostMapping
-    public Recharge addRecharge(@RequestBody Recharge recharge) {
-        logger.info("Received request to add new recharge for memberId: {}", recharge.getMemberId());
-        Recharge savedRecharge = rechargeService.addRecharge(recharge);
-        logger.info("Recharge saved successfully with id: {}", savedRecharge.getId());
-        return savedRecharge;
+    public ResponseEntity<Recharge> addRecharge(@RequestBody Recharge recharge) {
+        logger.info("API Call: POST /recharges");
+        return ResponseEntity.ok(rechargeService.addRecharge(recharge));
+    }
+
+    // Update recharge
+    @PutMapping("/{id}")
+    public ResponseEntity<Recharge> updateRecharge(@PathVariable String id, @RequestBody Recharge recharge) {
+        logger.info("API Call: PUT /recharges/{}", id);
+        return ResponseEntity.ok(rechargeService.updateRecharge(id, recharge));
+    }
+
+    // Delete recharge
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteRecharge(@PathVariable String id) {
+        logger.info("API Call: DELETE /recharges/{}", id);
+        rechargeService.deleteRecharge(id);
+        return ResponseEntity.ok("Recharge with ID " + id + " deleted successfully");
     }
 }
