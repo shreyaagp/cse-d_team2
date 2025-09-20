@@ -350,3 +350,5 @@ com.mongodb.MongoCommandException: Command failed with error 8000 (AtlasError): 
 2025-09-20T09:36:54.001+05:30  INFO 2655 --- [Gaming_app] [http-nio-8080-exec-8] com.team_2.controllers.GameController    : Received request: GET /games
 2025-09-20T09:36:54.002+05:30  INFO 2655 --- [Gaming_app] [http-nio-8080-exec-8] com.team_2.services.GameService          : Fetching all games from database
 2025-09-20T09:36:54.107+05:30  INFO 2655 --- [Gaming_app] [http-nio-8080-exec-8] com.team_2.services.GameService          : Retrieved 2 games
+2025-09-20T09:42:59.386+05:30  INFO 2655 --- [Gaming_app] [http-nio-8080-exec-10] c.team_2.controllers.RechargeController  : API Call: GET /recharges
+2025-09-20T09:42:59.388+05:30  INFO 2655 --- [Gaming_app] [http-nio-8080-exec-10] com.team_2.services.RechargeService      : Fetching all recharges from DB
